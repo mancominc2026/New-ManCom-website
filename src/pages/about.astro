@@ -1,0 +1,210 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CTA from '../components/CTA.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+
+const values = [
+  { icon: 'zap', title: 'Responsive', text: 'We answer the phone and we show up. Support is available 24 hours a day, 365 days a year.' },
+  { icon: 'users', title: 'Plain-spoken', text: 'You will get honest recommendations in language your leadership can act on — not a sales pitch.' },
+  { icon: 'award', title: 'Certified', text: `Our engineers hold ${site.certifications.join(', ')} certifications and keep them current.` },
+  { icon: 'flag', title: 'Accountable', text: 'A veteran-owned, locally operated small business. Our name is on every job we do.' },
+];
+---
+
+<Base
+  title="About ManCom"
+  description="Management Communications, Inc. (ManCom) is a veteran-owned, minority-owned small business in Phoenix, AZ providing managed IT support, network engineering, VoIP, and cyber security since 2012."
+>
+  <PageHero
+    eyebrow="About us"
+    title="A veteran-owned IT partner, rooted in Phoenix."
+    text="Management Communications, Inc. — ManCom — has supported Phoenix-area businesses since 2012 with managed IT, network engineering, business telephones, and cyber security."
+  />
+
+  <section class="section">
+    <div class="container story">
+      <div class="story__text">
+        <span class="eyebrow">Our story</span>
+        <h2>Communications first. Then everything connected to it.</h2>
+        <p>
+          ManCom began as a communications company, installing and supporting business telephone systems for
+          organizations across the Valley. As phones moved onto the network, our clients asked us to take care of the
+          network too — then the servers, the workstations, the internet circuits, and the security that protects all
+          of it.
+        </p>
+        <p>
+          Today we are a full-service managed IT provider, but the original promise hasn't changed: we pick up the phone,
+          we fix the problem, and we tell you the truth about what you need.
+        </p>
+        <p>
+          Management Communications (ManCom) is a small, veteran-owned, minority business. Our management staff brings
+          decades of combined experience in IT support, network engineering, and cyber security, and support is
+          offered around the clock. Our clients work with senior engineers who know their environment, not a rotating
+          help desk.
+        </p>
+      </div>
+      <div class="story__facts">
+        <ul>
+          <li><span>Founded</span><strong>{site.founded}</strong></li>
+          <li><span>Headquarters</span><strong>{site.address.city}, {site.address.state}</strong></li>
+          <li><span>Ownership</span><strong>Veteran-owned, minority-owned small business</strong></li>
+          <li><span>Availability</span><strong>24x7x365</strong></li>
+          <li><span>Partners</span><strong>{site.partners.join(', ')}</strong></li>
+          <li><span>Certifications</span><strong>{site.certifications.join(', ')}</strong></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">How we work</span>
+      <h2>What you can expect from ManCom.</h2>
+      <div class="grid grid--2 values">
+        {
+          values.map((v) => (
+            <div class="value card">
+              <span class="value__icon">
+                <Icon name={v.icon} size={22} />
+              </span>
+              <h3>{v.title}</h3>
+              <p>{v.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container gov">
+      <div>
+        <span class="eyebrow">Public sector &amp; compliance</span>
+        <h2>Experience where the paperwork matters.</h2>
+        <p class="lede">
+          As a veteran-owned small business, ManCom has supported government and regulated clients that need documented
+          safeguards, HIPAA-minded security reviews, and business-continuity planning. If you need a partner who can
+          answer an auditor's questions, we have done it before.
+        </p>
+      </div>
+      <ul class="gov__list">
+        <li><Icon name="check" size={18} /> Veteran-owned small business</li>
+        <li><Icon name="check" size={18} /> Minority-owned business</li>
+        <li><Icon name="check" size={18} /> HIPAA security reviews</li>
+        <li><Icon name="check" size={18} /> Business continuity planning</li>
+        <li><Icon name="check" size={18} /> Registered Arizona vendor</li>
+      </ul>
+    </div>
+  </section>
+
+  <CTA title="Let's talk about your business." text="Call us or send a note — a ManCom engineer, not a salesperson, will follow up." />
+</Base>
+
+<style>
+  .story {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  @media (max-width: 860px) {
+    .story {
+      grid-template-columns: 1fr;
+    }
+  }
+  .story__text p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+  }
+  .story__facts ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--white);
+    box-shadow: var(--shadow);
+  }
+  .story__facts li {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+  .story__facts li:last-child {
+    border-bottom: 0;
+  }
+  .story__facts span {
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .story__facts strong {
+    color: var(--brand-strong);
+    font-weight: 600;
+  }
+  .values {
+    margin-top: 36px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  @media (max-width: 960px) {
+    .values {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 560px) {
+    .values {
+      grid-template-columns: 1fr;
+    }
+  }
+  .value__icon {
+    display: inline-flex;
+    width: 46px;
+    height: 46px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--navy-100);
+    color: var(--brand);
+    margin-bottom: 14px;
+  }
+  .value p {
+    margin: 0;
+    color: var(--text-muted);
+  }
+  .gov {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (max-width: 800px) {
+    .gov {
+      grid-template-columns: 1fr;
+    }
+  }
+  .gov__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .gov__list li {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    background: var(--slate-50);
+    border: 1px solid var(--border);
+    font-weight: 500;
+  }
+  .gov__list :global(svg) {
+    color: var(--accent-strong);
+  }
+</style>

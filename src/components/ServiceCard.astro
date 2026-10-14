@@ -1,0 +1,65 @@
+---
+import type { Service } from '../data/services';
+import Icon from './Icon.astro';
+
+interface Props {
+  service: Service;
+}
+const { service } = Astro.props;
+---
+
+<a class="service-card" href={`/services/${service.slug}/`}>
+  <span class="service-card__icon"><Icon name={service.icon} size={26} /></span>
+  <h3>{service.title}</h3>
+  <p>{service.short}</p>
+  <span class="service-card__link">Learn more <Icon name="arrow" size={16} /></span>
+</a>
+
+<style>
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  .service-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 18px 40px -16px rgba(11, 31, 58, 0.35);
+  }
+  .service-card__icon {
+    display: inline-flex;
+    width: 52px;
+    height: 52px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--navy-100);
+    color: var(--brand);
+    margin-bottom: 6px;
+  }
+  .service-card h3 {
+    margin: 0;
+  }
+  .service-card p {
+    margin: 0;
+    color: var(--text-muted);
+    flex: 1;
+  }
+  .service-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: var(--brand);
+    margin-top: 8px;
+  }
+  .service-card:hover .service-card__link {
+    color: var(--accent-strong);
+  }
+</style>

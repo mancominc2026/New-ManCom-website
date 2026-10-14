@@ -1,0 +1,484 @@
+---
+import Base from '../layouts/Base.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import CTA from '../components/CTA.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+import { services } from '../data/services';
+
+const stats = [
+  { value: '24/7', label: 'Support, 365 days a year' },
+  { value: `${new Date().getFullYear() - site.founded}+`, label: 'Years serving Phoenix' },
+  { value: '8', label: 'Metro cities served on-site' },
+  { value: '7', label: 'Engineering certifications' },
+];
+
+const reasons = [
+  {
+    icon: 'zap',
+    title: 'We answer the phone',
+    text: 'A real engineer picks up, 24x7x365. Outages don\'t wait for business hours, and neither do we.',
+  },
+  {
+    icon: 'award',
+    title: 'Certified, senior engineers',
+    text: `We are highly skilled in network support and IT consulting with the following certifications: ${site.certifications.join(', ')}.`,
+  },
+  {
+    icon: 'flag',
+    title: 'Veteran-owned & local',
+    text: 'Management Communications Inc. (ManCom) is a veteran-owned, minority, small business based in Phoenix. We show up on-site across the Valley.',
+  },
+  {
+    icon: 'monitor',
+    title: 'Networks and phones, together',
+    text: 'Management Communications started in telecom. We build the network and the phone system so they actually work together.',
+  },
+];
+
+const steps = [
+  { n: '01', title: 'Assess', text: 'We review your current systems, document what you have, and flag what is at risk.' },
+  { n: '02', title: 'Stabilize', text: 'Quick wins first: backups, patching, security basics, and the problems that interrupt your day.' },
+  { n: '03', title: 'Support', text: 'Ongoing monitoring, help desk, and a roadmap so technology keeps up with your business.' },
+];
+---
+
+<Base title="ManCom Inc. | Managed IT Support, Network Engineering & VoIP in Phoenix, AZ" bareTitle>
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__copy">
+        <span class="eyebrow">Veteran-owned IT services &middot; Phoenix, AZ</span>
+        <h1>Reliable IT, networks, and phones for Phoenix businesses.</h1>
+        <p class="lede">
+          Providing technical support of your computer system, VoIP business telephone, internet connectivity, and
+          local area network in Phoenix, Peoria, Mesa, Gilbert, Glendale, Avondale, Goodyear, and Surprise. Contact us
+          at {site.phone} — we are available 24x7x365!
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href={site.phoneHref}><Icon name="phone" size={18} /> Call {site.phone}</a>
+          <a class="btn btn--ghost" href="/contact/">Get a free assessment</a>
+        </div>
+        <ul class="hero__proof">
+          <li><Icon name="check" size={16} /> Cisco, HP, Dell &amp; Microsoft partner</li>
+          <li><Icon name="check" size={16} /> On-site across the Valley</li>
+          <li><Icon name="check" size={16} /> HIPAA-minded security reviews</li>
+        </ul>
+      </div>
+
+      <div class="hero__panel" aria-hidden="true">
+        <div class="panel">
+          <div class="panel__head">
+            <span class="panel__dot"></span>
+            <span>Network status &middot; all sites</span>
+            <span class="panel__live">Live</span>
+          </div>
+          <ul class="panel__rows">
+            <li><span>Phoenix HQ — core switch</span><span class="ok">Online</span></li>
+            <li><span>Peoria office — firewall</span><span class="ok">Online</span></li>
+            <li><span>Mesa clinic — VoIP trunk</span><span class="ok">Online</span></li>
+            <li><span>Backup job — nightly</span><span class="ok">Verified</span></li>
+            <li><span>Patch compliance</span><span class="ok">98%</span></li>
+          </ul>
+          <div class="panel__foot">
+            <Icon name="headset" size={18} /> Engineer on call now
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="container stats__grid">
+      {
+        stats.map((s) => (
+          <div class="stat">
+            <span class="stat__value">{s.value}</span>
+            <span class="stat__label">{s.label}</span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="container">
+      <span class="eyebrow">What we do</span>
+      <h2>One partner for your entire technology stack.</h2>
+      <p class="lede">
+        From the cable in the wall to the phone on your desk, ManCom designs, installs, and supports it — so you have
+        one number to call.
+      </p>
+      <div class="grid grid--3 services-grid">
+        {services.map((service) => <ServiceCard service={service} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container">
+      <span class="eyebrow">Why ManCom</span>
+      <h2>Built for businesses that can't afford downtime.</h2>
+      <div class="grid grid--2 reasons">
+        {
+          reasons.map((r) => (
+            <div class="reason">
+              <span class="reason__icon">
+                <Icon name={r.icon} size={22} />
+              </span>
+              <div>
+                <h3>{r.title}</h3>
+                <p>{r.text}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">How it works</span>
+      <h2>Getting started is simple.</h2>
+      <ol class="steps">
+        {
+          steps.map((s) => (
+            <li class="step">
+              <span class="step__n">{s.n}</span>
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container partners">
+      <div>
+        <span class="eyebrow">Technology partners</span>
+        <h2>We work with the platforms your business already runs on.</h2>
+        <p class="lede">
+          Our engineers are certified on the equipment and software we recommend, so you get vendor-grade support
+          from people who know your environment.
+        </p>
+      </div>
+      <ul class="partners__list" aria-label="Technology partners">
+        {site.partners.map((p) => <li>{p}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container area">
+      <div>
+        <span class="eyebrow">Service area</span>
+        <h2>On-site across the Phoenix metro.</h2>
+        <p class="lede">
+          Our office is on North Black Canyon Highway in Phoenix, and our technicians provide on-site computer,
+          network, and VoIP telephone support throughout the Valley. Remote support is available anywhere.
+        </p>
+        <a class="btn btn--outline" href="/contact/">Check if we cover your office <Icon name="arrow" size={16} /></a>
+      </div>
+      <ul class="area__list">
+        {site.serviceArea.map((c) => <li><Icon name="pin" size={16} /> {c}, AZ</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <CTA />
+</Base>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(1000px 500px at 90% -20%, rgba(245, 158, 11, 0.22), transparent 60%),
+      radial-gradient(700px 500px at -10% 110%, rgba(26, 58, 107, 0.8), transparent 60%),
+      linear-gradient(180deg, var(--navy-950) 0%, var(--navy-900) 100%);
+    color: var(--navy-100);
+    padding-block: clamp(64px, 9vw, 120px);
+    overflow: hidden;
+  }
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(32px, 6vw, 72px);
+    align-items: center;
+  }
+  @media (max-width: 900px) {
+    .hero__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+  .hero h1 {
+    color: var(--white);
+    max-width: 16ch;
+  }
+  .hero .eyebrow {
+    color: var(--amber-400);
+  }
+  .hero .lede {
+    color: var(--navy-100);
+    opacity: 0.88;
+  }
+  .hero__actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+  .hero__proof {
+    list-style: none;
+    padding: 0;
+    margin: 32px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    font-size: 0.95rem;
+    opacity: 0.9;
+  }
+  .hero__proof li {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .hero__proof :global(svg) {
+    color: var(--amber-400);
+  }
+
+  .panel {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 18px;
+    padding: 22px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.6);
+    font-size: 0.95rem;
+  }
+  .panel__head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 14px;
+  }
+  .panel__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+  }
+  .panel__live {
+    margin-left: auto;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--amber-400);
+  }
+  .panel__rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 2px;
+  }
+  .panel__rows li {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+  .panel__rows .ok {
+    color: #86efac;
+    font-weight: 600;
+  }
+  .panel__foot {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--amber-400);
+    font-weight: 600;
+  }
+
+  .stats {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+  }
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    padding-block: 32px;
+  }
+  @media (max-width: 760px) {
+    .stats__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .stat__value {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--brand-strong);
+    line-height: 1;
+  }
+  .stat__label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 6px;
+  }
+
+  .services-grid {
+    margin-top: 40px;
+  }
+
+  .reasons {
+    margin-top: 40px;
+    gap: 28px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media (max-width: 720px) {
+    .reasons {
+      grid-template-columns: 1fr;
+    }
+  }
+  .reason {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 24px;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .reason__icon {
+    flex: none;
+    display: inline-flex;
+    width: 46px;
+    height: 46px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--accent);
+    color: var(--navy-950);
+  }
+  .reason h3 {
+    margin-bottom: 6px;
+  }
+  .reason p {
+    margin: 0;
+    opacity: 0.85;
+  }
+
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: 40px 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 24px;
+    counter-reset: step;
+  }
+  .step {
+    padding: 28px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--white);
+    box-shadow: var(--shadow);
+  }
+  .step__n {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--accent-strong);
+    margin-bottom: 12px;
+  }
+  .step p {
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  .partners {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (max-width: 800px) {
+    .partners {
+      grid-template-columns: 1fr;
+    }
+  }
+  .partners__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .partners__list li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 88px;
+    border-radius: var(--radius);
+    background: var(--white);
+    border: 1px solid var(--border);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--brand);
+    letter-spacing: -0.01em;
+  }
+
+  .area {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (max-width: 800px) {
+    .area {
+      grid-template-columns: 1fr;
+    }
+  }
+  .area .btn {
+    margin-top: 8px;
+  }
+  .area__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .area__list li {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    background: var(--slate-50);
+    border: 1px solid var(--border);
+    font-weight: 500;
+  }
+  .area__list :global(svg) {
+    color: var(--accent-strong);
+  }
+</style>

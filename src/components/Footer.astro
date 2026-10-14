@@ -1,0 +1,156 @@
+---
+import { site, fullAddress } from '../data/site';
+import { services } from '../data/services';
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <Logo light />
+      <p class="footer__tagline">{site.tagline}</p>
+      <p class="footer__badge">Veteran-Owned &middot; Minority-Owned &middot; Small Business</p>
+      <ul class="footer__social" aria-label="Social media">
+        <li><a href={site.social.linkedin} rel="noopener" target="_blank" aria-label="LinkedIn"><Icon name="linkedin" size={20} /></a></li>
+        <li><a href={site.social.facebook} rel="noopener" target="_blank" aria-label="Facebook"><Icon name="facebook" size={20} /></a></li>
+        <li><a href={site.social.x} rel="noopener" target="_blank" aria-label="X (Twitter)"><Icon name="x" size={20} /></a></li>
+      </ul>
+    </div>
+
+    <nav class="footer__col" aria-label="Services">
+      <h3>Services</h3>
+      <ul>
+        {services.map((s) => <li><a href={`/services/${s.slug}/`}>{s.title}</a></li>)}
+      </ul>
+    </nav>
+
+    <nav class="footer__col" aria-label="Company">
+      <h3>Company</h3>
+      <ul>
+        <li><a href="/about/">About ManCom</a></li>
+        <li><a href="/services/">All services</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        <li><a href="/contact/#quote">Request a quote</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer__col">
+      <h3>Contact</h3>
+      <ul class="footer__contact">
+        <li><Icon name="phone" size={18} /><a href={site.phoneHref}>{site.phone}</a></li>
+        <li><Icon name="mail" size={18} /><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li><Icon name="pin" size={18} /><a href={site.mapHref} rel="noopener" target="_blank">{fullAddress}</a></li>
+        <li><Icon name="clock" size={18} /><span>24x7x365 support</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <p>&copy; {year} {site.legalName} (ManCom). All rights reserved.</p>
+    <p>Serving {site.serviceArea.join(', ')}, and the greater Phoenix metro.</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--navy-950);
+    color: var(--navy-100);
+    padding-top: clamp(48px, 7vw, 80px);
+    font-size: 0.95rem;
+  }
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1.4fr;
+    gap: 40px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  @media (max-width: 900px) {
+    .footer__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .footer__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .footer__tagline {
+    margin-top: 16px;
+    opacity: 0.8;
+    max-width: 36ch;
+  }
+  .footer__badge {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--amber-400);
+    font-weight: 600;
+  }
+  .footer__social {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    padding: 0;
+    margin: 16px 0 0;
+  }
+  .footer__social a {
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    transition: background 0.15s ease;
+  }
+  .footer__social a:hover {
+    background: rgba(255, 255, 255, 0.18);
+  }
+  .footer__col h3 {
+    color: var(--white);
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .footer__col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 8px;
+  }
+  .footer__col a {
+    opacity: 0.85;
+    transition: opacity 0.15s ease, color 0.15s ease;
+  }
+  .footer__col a:hover {
+    opacity: 1;
+    color: var(--amber-400);
+  }
+  .footer__contact li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .footer__contact :global(svg) {
+    flex: none;
+    margin-top: 3px;
+    color: var(--amber-400);
+  }
+  .footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-block: 20px;
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+  .footer__bottom p {
+    margin: 0;
+  }
+</style>

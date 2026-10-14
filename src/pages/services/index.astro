@@ -1,0 +1,89 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import CTA from '../../components/CTA.astro';
+import { services } from '../../data/services';
+---
+
+<Base
+  title="IT Services"
+  description="Managed IT support, network engineering, VoIP business phone systems, cyber security, computer repair, and IT consulting for businesses in Phoenix, Peoria, Mesa, Gilbert, Glendale, Avondale, Goodyear, and Surprise."
+>
+  <PageHero
+    eyebrow="Services"
+    title="Everything your business needs to stay connected and secure."
+    text="ManCom designs, installs, and supports the technology small and mid-sized businesses depend on — with certified engineers available 24x7x365."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="grid grid--3">
+        {services.map((service) => <ServiceCard service={service} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container bundle">
+      <div>
+        <span class="eyebrow">Not sure where to start?</span>
+        <h2>Begin with a free network and security assessment.</h2>
+        <p class="lede">
+          We'll review your current systems, document what you have, and give you a prioritized list of risks and
+          recommendations — no obligation, no jargon.
+        </p>
+        <a class="btn btn--secondary" href="/contact/">Request an assessment</a>
+      </div>
+      <ul class="bundle__list">
+        <li>Inventory of workstations, servers, and network equipment</li>
+        <li>Backup and recovery check</li>
+        <li>Firewall, patching, and account security review</li>
+        <li>Phone system and internet circuit review</li>
+        <li>Written summary with clear next steps</li>
+      </ul>
+    </div>
+  </section>
+
+  <CTA />
+</Base>
+
+<style>
+  .bundle {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (max-width: 800px) {
+    .bundle {
+      grid-template-columns: 1fr;
+    }
+  }
+  .bundle__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .bundle__list li {
+    padding: 14px 16px 14px 44px;
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    border: 1px solid var(--border);
+    position: relative;
+    font-weight: 500;
+  }
+  .bundle__list li::before {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: var(--accent);
+  }
+</style>

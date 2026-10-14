@@ -1,0 +1,276 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { site, fullAddress } from '../data/site';
+
+const interests = [
+  'Managed IT support',
+  'Network engineering / internet access',
+  'VoIP / telephone systems',
+  'Cyber security / security consulting',
+  'Computer or server repair',
+  'IT consulting',
+  'Something else',
+];
+---
+
+<Base
+  title="Contact Us"
+  description={`Contact ManCom for IT support, network management, VoIP telephone systems, and cyber security in Phoenix, AZ. Call ${site.phone} — available 24x7x365.`}
+>
+  <PageHero
+    eyebrow="Contact"
+    title="Talk to a ManCom engineer."
+    text="Call any time, day or night. Or send us a few details and we'll follow up quickly with a free, no-obligation assessment."
+  />
+
+  <section class="section">
+    <div class="container contact">
+      <div class="contact__info">
+        <div class="info-card">
+          <span class="info-card__icon"><Icon name="phone" size={22} /></span>
+          <div>
+            <h3>Call us — 24x7x365</h3>
+            <a class="info-card__big" href={site.phoneHref}>{site.phone}</a>
+            <p>Fax: {site.fax}</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <span class="info-card__icon"><Icon name="mail" size={22} /></span>
+          <div>
+            <h3>Email</h3>
+            <a class="info-card__big" href={`mailto:${site.email}`}>{site.email}</a>
+            <p>We reply to every message.</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <span class="info-card__icon"><Icon name="pin" size={22} /></span>
+          <div>
+            <h3>Office</h3>
+            <p>{site.address.street}<br />{site.address.city}, {site.address.state} {site.address.zip}</p>
+            <a href={site.mapHref} rel="noopener" target="_blank">Get directions <Icon name="arrow" size={14} /></a>
+          </div>
+        </div>
+        <div class="info-card">
+          <span class="info-card__icon"><Icon name="clock" size={22} /></span>
+          <div>
+            <h3>Service area</h3>
+            <p>On-site support in {site.serviceArea.join(', ')}, and the greater Phoenix metro. Remote support anywhere.</p>
+          </div>
+        </div>
+      </div>
+
+      <form class="form" id="quote" name="contact" method="POST" action="/contact/?sent=1" data-netlify="true" netlify-honeypot="company-website">
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hidden-field">
+          <label>Leave this field empty: <input name="company-website" tabindex="-1" autocomplete="off" /></label>
+        </p>
+        <h2>Request a quote or assessment</h2>
+        <div class="form__row">
+          <label>
+            <span>Name</span>
+            <input type="text" name="name" autocomplete="name" required />
+          </label>
+          <label>
+            <span>Company</span>
+            <input type="text" name="company" autocomplete="organization" />
+          </label>
+        </div>
+        <div class="form__row">
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" autocomplete="email" required />
+          </label>
+          <label>
+            <span>Phone</span>
+            <input type="tel" name="phone" autocomplete="tel" />
+          </label>
+        </div>
+        <label>
+          <span>I'm interested in</span>
+          <select name="interest">
+            {interests.map((i) => <option>{i}</option>)}
+          </select>
+        </label>
+        <label>
+          <span>How can we help?</span>
+          <textarea name="message" rows="5" required></textarea>
+        </label>
+        <button class="btn btn--primary" type="submit">Send message <Icon name="arrow" size={16} /></button>
+        <p class="form__note">
+          Prefer to talk? Call <a href={site.phoneHref}>{site.phone}</a> — an engineer is available now.
+        </p>
+        <p class="form__success" data-success hidden>
+          Thanks — your message is on its way. A ManCom engineer will follow up shortly.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <section class="map">
+    <iframe
+      title={`Map of ManCom office at ${fullAddress}`}
+      src={`https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`}
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      allowfullscreen
+    ></iframe>
+  </section>
+</Base>
+
+<script>
+  if (new URLSearchParams(location.search).get('sent') === '1') {
+    const el = document.querySelector<HTMLElement>('[data-success]');
+    if (el) {
+      el.hidden = false;
+      el.scrollIntoView({ block: 'center' });
+    }
+  }
+</script>
+
+<style>
+  .contact {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 48px;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .contact {
+      grid-template-columns: 1fr;
+    }
+  }
+  .contact__info {
+    display: grid;
+    gap: 16px;
+  }
+  .info-card {
+    display: flex;
+    gap: 16px;
+    padding: 22px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--white);
+    box-shadow: var(--shadow);
+  }
+  .info-card__icon {
+    flex: none;
+    display: inline-flex;
+    width: 46px;
+    height: 46px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--navy-100);
+    color: var(--brand);
+  }
+  .info-card h3 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+  .info-card p {
+    margin: 4px 0 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+  .info-card a {
+    color: var(--brand);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .info-card__big {
+    font-size: 1.25rem;
+  }
+
+  .form {
+    padding: 32px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--slate-50);
+  }
+  .form h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  .form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 560px) {
+    .form__row {
+      grid-template-columns: 1fr;
+    }
+  }
+  .form label {
+    display: block;
+    margin-bottom: 16px;
+  }
+  .form label span {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    color: var(--brand-strong);
+  }
+  .form input,
+  .form select,
+  .form textarea {
+    width: 100%;
+    font: inherit;
+    padding: 12px 14px;
+    border: 1px solid var(--slate-300);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    color: var(--text);
+  }
+  .form input:focus,
+  .form select:focus,
+  .form textarea:focus {
+    outline: 3px solid rgba(245, 158, 11, 0.45);
+    border-color: var(--accent);
+  }
+  .form textarea {
+    resize: vertical;
+  }
+  .form .btn {
+    width: 100%;
+    margin-top: 4px;
+  }
+  .form__note {
+    margin: 16px 0 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+  .form__note a {
+    color: var(--brand);
+    font-weight: 600;
+  }
+  .form__success {
+    margin: 16px 0 0;
+    padding: 14px 16px;
+    border-radius: var(--radius-sm);
+    background: #dcfce7;
+    color: #14532d;
+    font-weight: 500;
+  }
+  .hidden-field {
+    position: absolute;
+    left: -9999px;
+  }
+  .map {
+    background: var(--slate-100);
+    border-top: 1px solid var(--border);
+  }
+  .map iframe {
+    display: block;
+    width: 100%;
+    height: 380px;
+    border: 0;
+    filter: grayscale(20%);
+  }
+</style>

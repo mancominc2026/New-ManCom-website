@@ -1,0 +1,54 @@
+---
+interface Props {
+  light?: boolean;
+}
+const { light = false } = Astro.props;
+---
+
+<span class:list={['logo', { 'logo--light': light }]}>
+  <svg class="logo__mark" viewBox="0 0 64 64" width="40" height="40" aria-hidden="true">
+    <rect width="64" height="64" rx="14" fill="#0b1f3a"></rect>
+    <path d="M14 46V18h8l10 16 10-16h8v28h-8V31l-10 15-10-15v15z" fill="#f59e0b"></path>
+  </svg>
+  <span class="logo__text">
+    <span class="logo__name">ManCom</span>
+    <span class="logo__sub">IT Services &amp; Communications</span>
+  </span>
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .logo__mark {
+    flex: none;
+  }
+  .logo__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .logo__name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.35rem;
+    letter-spacing: -0.02em;
+    color: var(--brand-strong);
+  }
+  .logo__sub {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--slate-500);
+    font-weight: 600;
+  }
+  .logo--light .logo__name {
+    color: var(--white);
+  }
+  .logo--light .logo__sub {
+    color: var(--navy-100);
+    opacity: 0.7;
+  }
+</style>

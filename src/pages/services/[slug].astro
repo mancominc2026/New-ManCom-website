@@ -1,0 +1,231 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTA from '../../components/CTA.astro';
+import Icon from '../../components/Icon.astro';
+import { services } from '../../data/services';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+const { service } = Astro.props;
+const others = services.filter((s) => s.slug !== service.slug);
+---
+
+<Base title={`${service.title} in Phoenix, AZ`} description={service.summary}>
+  <PageHero eyebrow="Services" title={service.title} text={service.summary}>
+    <div class="hero-actions">
+      <a class="btn btn--primary" href={site.phoneHref}><Icon name="phone" size={18} /> Call {site.phone}</a>
+      <a class="btn btn--ghost" href="/contact/">Request a quote</a>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="container detail">
+      <div class="detail__main">
+        <p class="intro">{service.intro}</p>
+
+        <h2>What's included</h2>
+        <div class="grid grid--2 features">
+          {
+            service.features.map((f) => (
+              <div class="feature">
+                <span class="feature__check">
+                  <Icon name="check" size={16} />
+                </span>
+                <div>
+                  <h3>{f.title}</h3>
+                  <p>{f.text}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        {
+          service.faq && (
+            <>
+              <h2>Common questions</h2>
+              <div class="faq">
+                {service.faq.map((item) => (
+                  <details>
+                    <summary>{item.q}</summary>
+                    <p>{item.a}</p>
+                  </details>
+                ))}
+              </div>
+            </>
+          )
+        }
+      </div>
+
+      <aside class="detail__side">
+        <div class="side-card">
+          <h3>What you get</h3>
+          <ul>
+            {service.outcomes.map((o) => <li><Icon name="star" size={16} /> {o}</li>)}
+          </ul>
+        </div>
+        <div class="side-card side-card--dark">
+          <h3>Talk to an engineer</h3>
+          <p>Available 24x7x365 for businesses across the Phoenix metro.</p>
+          <a class="btn btn--primary" href={site.phoneHref}><Icon name="phone" size={18} /> {site.phone}</a>
+          <a class="side-card__mail" href={`mailto:${site.email}`}>{site.email}</a>
+        </div>
+        <div class="side-card">
+          <h3>Other services</h3>
+          <ul class="side-links">
+            {others.map((o) => <li><a href={`/services/${o.slug}/`}>{o.title}</a></li>)}
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <CTA title={`Ready to talk about ${service.title.toLowerCase()}?`} />
+</Base>
+
+<style>
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  .detail {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 48px;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .detail {
+      grid-template-columns: 1fr;
+    }
+  }
+  .intro {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+  }
+  .detail__main h2 {
+    margin-top: 8px;
+  }
+  .features {
+    margin: 24px 0 48px;
+    gap: 18px;
+  }
+  .feature {
+    display: flex;
+    gap: 14px;
+    padding: 20px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--white);
+  }
+  .feature__check {
+    flex: none;
+    display: inline-flex;
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--navy-950);
+    margin-top: 2px;
+  }
+  .feature h3 {
+    font-size: 1.05rem;
+    margin-bottom: 4px;
+  }
+  .feature p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.97rem;
+  }
+  .faq {
+    display: grid;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .faq details {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    background: var(--white);
+  }
+  .faq summary {
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--brand-strong);
+  }
+  .faq p {
+    margin: 12px 0 0;
+    color: var(--text-muted);
+  }
+
+  .detail__side {
+    display: grid;
+    gap: 20px;
+    position: sticky;
+    top: 96px;
+  }
+  .side-card {
+    padding: 24px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--slate-50);
+  }
+  .side-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 12px;
+  }
+  .side-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .side-card li {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .side-card li :global(svg) {
+    flex: none;
+    margin-top: 4px;
+    color: var(--accent-strong);
+  }
+  .side-card--dark {
+    background: var(--navy-900);
+    color: var(--navy-100);
+    border-color: transparent;
+  }
+  .side-card--dark h3 {
+    color: var(--white);
+  }
+  .side-card--dark p {
+    opacity: 0.85;
+  }
+  .side-card--dark .btn {
+    width: 100%;
+  }
+  .side-card__mail {
+    display: block;
+    text-align: center;
+    margin-top: 12px;
+    font-weight: 500;
+    color: var(--amber-400);
+  }
+  .side-links a {
+    color: var(--brand);
+    font-weight: 500;
+  }
+  .side-links a:hover {
+    color: var(--accent-strong);
+  }
+</style>
